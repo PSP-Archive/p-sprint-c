@@ -1,0 +1,12 @@
+version 0.70b
+
+Used a version of the p_sprint include that defaults to a new key layout, for testing, as suggested by RyTracer on forums.ps2dev.org.
+The new layout contains some extra friendly names as well (for left/right control, left/right menu, etc.)
+
+Rewrote the p-sprint test-screen using the include version of p-sprint. The new setup gives feedback on your group selection, shift modifications, and keynames (e.g. if you press the combination for F1, you'll see F1 in the bottom left of the screen).
+
+Typing includes basic interpretation of the regular keys, space, backspace and enter. 
+
+The screen is a lot sparser now than the original version, and the default keymaps aren't displayed on screen. If you're completely new to p-sprint, just go ahead and test combining different button presses and see what you get. Also, you can look on the keyboard image in the forum thread that has the p-sprint combinations included.
+
+Once I learn how to blit an image to the screen, I'll add images like that in a help screen. 

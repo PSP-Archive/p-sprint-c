@@ -1,0 +1,85 @@
+version 0.70b
+- this is a test release offering a new key layout through p_spSetupKeyCodes_Layout2 (selected as default for testing) as suggested by RyTracer on forums.ps2dev.org. You can still manually set it back to the original layout using p_spSetupKeyCodes
+
+version 0.63a
+- bugfix: removed the sceCtrlSetSamplingCycle(0) and sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG) calls from the p_spReadKeyEx init routine
+
+Comment: calling this reinitialised reading from the controller which can mess up the routine that p-sprint runs alongside to when using p_spReadKeyEx. Therefore it has been removed from that routine. p_spReadKey still uses it, though its default setting has been changed to Analog from Digital. 
+
+version 0.62a
+- added p_spGetKeycodeFriendlyName(int keyCode, char keyName[])
+
+Comment: this gives you the name of the key, if it is a key that has a special name and no character representation (like F1, Home, Shift, and so on)
+
+- fixed a number of faulty keyid/code/char links that I discovered while rewriting the testscreen
+
+version 0.60a
+- added p_spReadKeyEx(struct p_sp_Key myKey, int Buttons). 
+
+Comment: This function makes integrating p-sprint with your current applications easier. Say that you have a cursor implemented using the analog stick. You can now handle any of the controller's input yourself, but if it contains button input that you want p-sprint to look at for key presses, you simply pass the Buttons value to p_spReadKeyEx and look at the p_sp_Key structure to see if that resulted in anything interesting. See documentation for an example.
+
+- added support for OS key (e.g. Apple/Win key).
+
+Comment: Hold first button and press 'X' or 'Down', release both, and then press the second button.
+
+- shift keys now combine properly in Key.modifiers
+
+Comment: this means that for instance ctrl-shift-a is possible, as well as ctrl-alt-delete. ;) Ctrl-shift-a would be: hold triangle, press square, press triangle, release all, press circle. Ctrl-alt-delete would be: (in group 2) 
+
+- rewrote version.txt to apply only to the p_sprint.h and p_sprint.c files. 
+
+version 0.53a
+- key repeat back in
+- function setCustomKeyRepeat(int Rate, int Hold) added. 
+
+Comment: You can use this function to set a custom keyrepeatrate. The first is the basic repeat speed, the second is the first key threshold (to prevent triggering key repeats too quickly, making typing inpossible). Defaults are 2 / 16. 
+
+version 0.52a
+- first release of p-sprint as a clean c library package with header file. 
+- added a non-blocking readKey function with a new structure that contains information on which group is selected, which modifiers were pressed, and so on, all at the right time. The p-sprint testscreen uses the function to display a proper blinking cursor. Lost key-repeat in the process.
+
+
+version 0.50a
+- setup all keycodes and character values for 102-key PC keyboard compatibility.
+- added documentation for the mapped keys and their values (see http://www.niwra.nl/psp/p-sprint-c/doc/index.htm for the latest version)
+- added proper key-repeat functionality
+- wrote a getKey function with a structure interface for getting all the key info you need (keychar, keycode and modifiers - see also the documentation)
+- commented the code and cleaned it up a bit
+
+version 0.40a
+- more or less completely rewrote the whole program to make the setup keycode and keychar value compatible. What this means is that the current code can easily be used to port existing, keyboard using/requiring software to the PSP by simply hooking up the p_spGetChar and/or p_spGetKeyCode functions. The code and codekey assignments should now almost be fully compatible with existing real keyboards. 
+- while rewriting the code and mapping, I also remapped the alphanumeric keys for easier typing. The most used keys will now typically be easiest to type, and I've also grouped keys according to how they occur together. 
+- added shift simulation; while you keep the first button pressed, press up. Then let both buttons go, and press the second button, and you will get a shift (e.g. 'E' instead of 'e'). Alt and control is implemented the same way (with left and right), but currently no data is loaded - though of course you can edit the source to get this done, but I'll work on it later this weekend or early next week. 
+- changed key group selection through button combo. Currently only one group selection (only containing the numbers, including their shift values) is available, by holding left and pressing cross. The other two groups (up and cross, and right and cross) are implemented but don't hold any buttons yet. Capacity is 114 buttons currently, so more than enough to simulate a full 102 key keyboard (with some browser buttons)
+
+version 0.30a
+- added Numeric and CAPS modes (use SELECT to switch between them)
+
+version 0.20a:
+- fixed backspace option
+
+version 0.10a:
+- first working PSP version of proof of concept implementing the first 38 keys (alphabet, backspace, space, and a few symbols).
+
+
+TO DO:
+
+Phase 1 version:
+- (co)write a nicer user interface that can be easily integrated into other applications
+- load custom keymappings and groups
+- support other languages
+
+
+
+Phase 2 version:
+- add the dictionary options already developed in the prototype
+- setup and test some other language dictionaries
+- provide easy support for custom dictionaries
+
+THANKS TO:
+
+- Shine
+- All Devkit subbers
+- All Testers :)
+- ps2dev.org and pspupdates.com
+
